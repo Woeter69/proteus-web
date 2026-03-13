@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Move to the platform directory
+# Move to the project directory
 cd "$(dirname "$0")"
 
 # Function to kill background processes on exit
@@ -12,11 +12,11 @@ cleanup() {
 # Set up the trap to catch SIGINT (Ctrl+C) and call cleanup
 trap cleanup SIGINT
 
-echo "Updating Conda Environment..."
-conda env update --file ../environment.yml --prune
+echo "Installing/Updating Python dependencies..."
+pip install -r backend/requirements.txt
 
 echo "Starting Backend (FastAPI)..."
-cd backend && conda run --no-capture-output -n proteus_env uvicorn main:app --reload --port 8000 &
+cd backend && uvicorn main:app --reload --port 8000 &
 
 echo "Starting Frontend (Next.js)..."
 cd ../frontend && npm run dev &

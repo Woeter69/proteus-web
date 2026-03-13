@@ -12,7 +12,12 @@ platform_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(root_dir))
 sys.path.append(str(platform_dir))
 
-from src import topology
+try:
+    from src import topology
+except ImportError:
+    topology = None
+    print("WARNING: 'src' folder not found. Simulation logic will be disabled.")
+
 from backend.worker import run_simulation_task
 from backend.database import SessionLocal, engine, get_db
 from backend import models

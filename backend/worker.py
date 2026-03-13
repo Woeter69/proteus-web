@@ -9,7 +9,15 @@ sys.path.append(str(root_dir))
 sys.path.append(str(platform_dir))
 
 from backend.celery_app import celery_app
-from src import topology, simulation, analysis, visualization
+try:
+    from src import topology, simulation, analysis, visualization
+except ImportError:
+    topology = None
+    simulation = None
+    analysis = None
+    visualization = None
+    print("WARNING: 'src' folder not found. Simulation tasks will fail.")
+
 from backend.database import SessionLocal
 from backend.models import Simulation
 from backend.email_service import send_simulation_complete_email

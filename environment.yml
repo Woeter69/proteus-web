@@ -1,0 +1,23 @@
+name: proteus
+dependencies:
+  - python=3.10
+  - pip
+  - rdkit
+  - postgresql
+  - redis
+  - uvicorn
+  - fastapi
+  - pydantic
+  - sqlalchemy
+  - celery
+  - psycopg2-binary
+  - flask-cors
+  - jinja2
+  - requests
+  - aiohttp
+  - python-multipart
+  - pip:
+      - passlib[bcrypt]
+      - python-jose[cryptography]
+      - python-dotenv
+      - celery[redis]

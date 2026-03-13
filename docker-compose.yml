@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # PostgreSQL Database
   db:
@@ -18,8 +16,22 @@ services:
   redis:
     image: redis:7-alpine
     restart: always
+
+  # Main Application Service
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
     ports:
-      - "6379:6379"
+      - "80:80"
+    environment:
+      - DATABASE_URL=postgresql://proteus:proteus_password@db:5432/proteus_db
+      - REDIS_URL=redis://redis:6379/0
+      - PORT=80
+    depends_on:
+      - db
+      - redis
 
 volumes:
   postgres_data:
